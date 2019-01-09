@@ -1,0 +1,47 @@
+/* ---------------------------------------------------
+    只給 behavior2.html 使用，變更或新增 style
+----------------------------------------------------- */
+
+.dropdown-menu::before {
+	box-shadow: none;
+}
+
+.dropdown-menu.show {
+	background: #FFF;
+	height: auto;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 3px rgba(0, 0, 0, 0.12), 0 4px 15px 0 rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 575px) {
+	.st-list > div {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 8px;
+	}
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+    .st-list > div {
+		width: calc((100% - 8px) / 2);
+		margin-bottom: 16px;
+		margin-right: 8px;
+	}
+	
+	.st-list > div:nth-child(2n+2) {
+		margin-right: 0;
+	}
+}
+
+@media (min-width: 992px) {
+	.st-list > div {
+		width: calc((100% - 8px * 2) / 3);
+		margin-bottom: 16px;
+		margin-right: 8px;
+	}
+
+	.st-list > div:nth-child(3n+3) {
+		margin-right: 0;
+	}
+}

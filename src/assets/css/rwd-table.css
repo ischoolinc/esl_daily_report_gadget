@@ -1,0 +1,84 @@
+/* ---------------------------------------------------
+    Responsive UL Table
+----------------------------------------------------- */
+
+ul.rwd-table {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	box-sizing: border-box;
+	font-size: 0.9375rem;
+}
+
+ul.rwd-table {
+	width: 100%;
+	display: table;
+	margin: 1rem auto;
+	border-collapse: collapse;
+}
+
+ul.rwd-table .thead {
+	display: table-header-group;
+}
+
+ul.rwd-table .tr {
+	display: table-row;
+}
+
+ul.rwd-table .tbody {
+	display: table-row-group;
+}
+
+ul.rwd-table .thead li,
+ul.rwd-table .tr li {
+	display: table-cell;
+	padding: .919643rem;
+	text-align: center;
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	white-space: nowrap;
+}
+
+ul.rwd-table .thead li {
+	text-align: center;
+	font-weight: bold;
+	background: rgba(0, 0, 0, 0.12);
+}
+
+ul.rwd-table .tbody ol:hover {
+	background: rgba(0, 0, 0, 0.08);
+}
+
+ul.rwd-table ol:nth-child(even) {
+	background: #f5f5f5;
+}
+
+@media only screen and (max-width:768px) {
+	ul.rwd-table .thead {
+		display: none;
+	}
+
+	ul.rwd-table .tr {
+		display: block;
+		border: #ddd 1px solid;
+		margin-bottom: 5px;
+		padding-left: 0;
+	}
+
+	ul.rwd-table .tr li {
+		display: flex;
+		width: 100%;
+		border: none;
+		text-align: left;
+		-ms-flex-align: stretch !important;
+		align-items: stretch !important;
+	}
+
+	ul.rwd-table .tr li:before {
+		content: attr(data-title);
+		display: flex;
+		width: auto;
+		min-width: 80px;
+		font-weight: 900;
+		padding-right: 1rem;
+	}
+}

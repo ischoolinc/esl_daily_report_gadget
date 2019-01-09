@@ -1,0 +1,111 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>康橋國際學校</title>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/material.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="./assets/css/material.css" rel="stylesheet" type="text/css">
+  <link href="./assets/css/default.css" rel="stylesheet" type="text/css">
+  <!-- <link href="./assets/css/behavior2.css" rel="stylesheet" type="text/css"> -->
+  <link href="./assets/css/rwd-table.css" rel="stylesheet" type="text/css">
+  <!-- <link href="./css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+</head>
+<body>
+  <!-- <nav class="navbar fixed-top navbar-light bg-white justify-content-between shadow py-3">
+    <a class="navbar-brand" href="index.html">
+        <img src="./assets/img/logo.png" class="d-inline-block align-top mr-2" alt="">
+        Kang Chiao International School
+    </a>
+    <span class="user-name d-none d-sm-block">Hi, Miranda</span>
+  </nav>
+   -->
+  <!-- 生活表現列表 -->
+    <div id="behavior">
+        <nav aria-label="breadcrumb text-nowrap text-truncate">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/daily-report">首頁</a></li>
+                <li class="breadcrumb-item active"><a routerLink="/daily-report">生活表現</a></li>
+            </ol>
+        </nav>
+        
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-md-7 d-flex flex-column flex-sm-row align-items-sm-center text-left typography-body-2">
+                <span class="text-nowrap mr-3 mb-1">指定區間</span>
+                <input type="date" class="form-control mb-1" [(ngModel)]="startDate" (change)="reloadData()">
+                <span class="mx-3 mb-1 d-none d-sm-block">~</span>
+                <input type="date" class="form-control mb-1" [(ngModel)]="endDate" (change)="reloadData()">
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{currentCondition.value}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" *ngFor="let key of conditionList.keys()" (click)="setCurrentCondition(key)">{{conditionList.get(key)}}</a>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <button class="btn btn-info" (click)="addBtnClick()" [routerLink]="['/daily-report/add',startDate,endDate,currentCondition.key]">
+                        <i class="material-icons mr-1">add</i>
+                        新增
+                    </button>
+                    <!-- <button class="btn btn-info" (click)="addBtnClick()" routerLink="/daily-report/add">
+                        <i class="material-icons mr-1">add</i>
+                        新增
+                    </button> -->
+                </div>
+            </div>
+        </div>
+
+        <ul class="list-group mb-3"
+            *ngFor="let data of dataRow">
+            <li class="list-group-item active d-flex flex-column flex-sm-row font-weight-bold">
+                <span class="mb-1 mb-sm-0 mr-3">{{data.ClassName}}</span>
+                <span class="my-1 my-sm-0">{{data.StudentName}}  ({{data.StudentNumber}})</span>
+                <span class="my-1 my-sm-0"> -{{data.CourseName}}</span>
+                <!-- <button class="ml-auto btn btn-outline-info py-1 px-2">編輯</button> -->
+            </li>
+            <li class="list-group-item">
+                <code class="mr-1">{{data.CreateDate}} {{data.TeacherName}}：</code>
+                {{data.Comment}}
+            </li>
+            <li class="list-group-item list-group-item-light d-flex flex-column flex-md-row">
+                <div class="flex-fill mb-2 mb-md-0">
+                    <i *ngIf="data.IsGoodBehavior == 't'" class="material-icons text-success mr-1">sentiment_satisfied_alt</i>
+                    <i *ngIf="data.IsGoodBehavior == 'f'" class="material-icons text-danger mr-1">sentiment_very_dissatisfied</i>
+                    表現
+                </div>
+                <div class="flex-fill mb-2 mb-md-0">
+                    <i *ngIf="data.RequiresAttention == 'f'" class="material-icons text-black-hint mr-1">close</i>
+                    <i *ngIf="data.RequiresAttention == 't'" class="material-icons text-danger mr-1">done</i>
+                    需要關注
+                </div>
+                <div class="flex-fill mb-2 mb-md-0">
+                    <i *ngIf="data.NotifyParent == 'f'" class="material-icons text-black-hint mr-1">close</i>
+                    <i *ngIf="data.NotifyParent == 't'" class="material-icons text-danger mr-1">done</i>
+                    需通知家長
+                </div>
+                <div class="flex-fill mb-2 mb-md-0">
+                    <i *ngIf="data.MailSendSchool == 'f'" class="material-icons text-black-hint mr-1">close</i>
+                    <i *ngIf="data.MailSendSchool == 't'" class="material-icons text-danger mr-1">done</i>
+                    已寄出通知學校
+                </div>
+                <div class="flex-fill mb-2 mb-md-0">
+                    <i *ngIf="data.MailSendParent == 'f'" class="material-icons text-black-hint mr-1">close</i>
+                    <i *ngIf="data.MailSendParent == 't'" class="material-icons text-danger mr-1">done</i>
+                    已寄出通知家長
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</body>
